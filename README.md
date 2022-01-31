@@ -2,7 +2,7 @@
 
 Versions :
 - CentOS: centos8
-- opensource COBOL 4j: v1.0.2
+- opensource COBOL 4j: v1.0.3
 
 In order to "Hello World" program, run the following commands in the docker container
 

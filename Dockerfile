@@ -1,9 +1,7 @@
 FROM centos:centos8
 
 # install dependencies of opensourcecobol 4j
-RUN rpm --import http://repos.azulsystems.com/RPM-GPG-KEY-azulsystems &&\
-    curl -o /etc/yum.repos.d/zulu.repo http://repos.azulsystems.com/rhel/zulu.repo &&\
-    dnf install -y gcc gcc-c++ make bison flex gmp-devel ncurses-devel zulu-14 unzip automake autoconf libtool
+RUN dnf install -y gcc gcc-c++ make bison flex gmp-devel ncurses-devel java-17-openjdk unzip automake autoconf libtool
 
 RUN ln -s /usr/bin/aclocal /usr/bin/aclocal-1.13 &&\
     ln -s /usr/bin/automake /usr/bin/automake-1.13

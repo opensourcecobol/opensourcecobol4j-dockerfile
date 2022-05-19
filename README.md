@@ -1,15 +1,10 @@
 # opensource COBOL 4j development environment (Docker)
 
-Versions :
-- CentOS: centos8
-- opensource COBOL 4j: v1.0.3
+> This image is a fork of https://github.com/opensourcecobol/opensourcecobol4j-dockerfile which uses https://github.com/opensourcecobol/opensourcecobol4j both licenced under GPL-3.0 license.
 
-In order to "Hello World" program, run the following commands in the docker container
+## Usage ##
 
 ```
-cd /root/cobol_sample
-cobc HELLO.cbl
-java HELLO
+docker run -v $(pwd):/output ghcr.io/hfhbd/cobol2java HELLO.cbl
 ```
-
-Copyright 2021, Tokyo System House Co., Ltd. <opencobol@tsh-world.co.jp>
+This will create `Hello.java` and `Hello.class` in the current/mounted directory.

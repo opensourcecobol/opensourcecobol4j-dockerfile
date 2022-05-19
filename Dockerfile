@@ -36,13 +36,10 @@ RUN cd /root/opensourcecobol4j-1.0.3/vbisam &&\
     make install
 
 # classpath settings
-RUN export CLASSPATH=$CLASSPATH:/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar &&\
-    echo 'export CLASSPATH=$CLASSPATH:/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar' >> ~/.bashrc
+ENV CLASSPATH=$CLASSPATH:/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar
 
 # add a sample program
 RUN mkdir /root/cobol_sample
 ADD HELLO.cbl /root/cobol_sample/HELLO.cbl
 
-WORKDIR /root/
-
-CMD ["/bin/bash"]
+WORKDIR /outout/

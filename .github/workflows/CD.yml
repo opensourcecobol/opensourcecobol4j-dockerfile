@@ -1,0 +1,17 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+
+    steps:
+      - run: docker login ghcr.io -u ${{ github.actor }} -p ${{ github.token }}
+      - uses: actions/checkout@v3
+      - run: docker build --platform linux/amd64 --tag ghcr.io/hfhbd/cobol2java .
+      - run: docker push ghcr.io/hfhbd/cobol2java

@@ -1,7 +1,7 @@
-FROM centos:centos8
+FROM eclipse-temurin:17
 
 # install dependencies of opensourcecobol 4j
-RUN dnf install -y gcc gcc-c++ make bison flex gmp-devel ncurses-devel java-17-openjdk unzip automake autoconf libtool
+RUN apt update && apt install -y build-essential libgmp3-dev
 
 RUN ln -s /usr/bin/aclocal /usr/bin/aclocal-1.13 &&\
     ln -s /usr/bin/automake /usr/bin/automake-1.13
@@ -36,8 +36,4 @@ RUN cd /root/opensourcecobol4j-1.0.3/vbisam &&\
 # classpath settings
 ENV CLASSPATH=$CLASSPATH:/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar
 
-# add a sample program
-RUN mkdir /root/cobol_sample
-ADD HELLO.cbl /root/cobol_sample/HELLO.cbl
-
-WORKDIR /outout/
+WORKDIR /output

@@ -37,3 +37,4 @@ RUN cd /root/opensourcecobol4j-1.0.3/vbisam &&\
 ENV CLASSPATH=$CLASSPATH:/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar
 
 WORKDIR /output
+ENTRYPOINT ["cobc"]

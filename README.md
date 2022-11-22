@@ -1,14 +1,15 @@
-# opensource COBOL 4j development environment (Docker)
+# opensource COBOL 4J development environment (Docker)
 
 Versions :
-- CentOS: Ubuntu
-- opensource COBOL 4j: v1.0.4
+
+- OS: Ubuntu
+- opensource COBOL 4j: v1.0.5
 
 In order to "Hello World" program, run the following commands in the docker container
 
 ```
 cd /root/cobol_sample
-cobc HELLO.cbl
+cobj HELLO.cbl
 java HELLO
 ```
 

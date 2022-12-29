@@ -14,17 +14,16 @@ ENV CLASSPATH :/root/.java_lib/sqlite.jar
 
 # install opensourcecobol4j
 RUN cd /root &&\
-    curl -L -o opensourcecobol4j-v1.0.5.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.5.tar.gz &&\
-    tar zxvf opensourcecobol4j-v1.0.5.tar.gz &&\
-    cd opensourcecobol4j-1.0.5 &&\
+    curl -L -o opensourcecobol4j-v1.0.6.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.6.tar.gz &&\
+    tar zxvf opensourcecobol4j-v1.0.6.tar.gz &&\
+    cd opensourcecobol4j-1.0.6 &&\
     ./configure --prefix=/usr/ &&\
     make &&\
-    make install &&\
-    cp libcobj/build/libcobj.jar ~/.java_lib
+    make install
 
 # classpath settings
-ENV CLASSPATH :/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar
-RUN echo 'export CLASSPATH=:/root/.java_lib/sqlite.jar:/root/.java_lib/libcobj.jar' >> ~/.bashrc
+ENV CLASSPATH :/root/.java_lib/sqlite.jar:/usr/lib/opensourcecobol4j/libcobj.jar
+RUN echo 'export CLASSPATH=:/root/.java_lib/sqlite.jar:/usr/lib/opensourcecobol4j/libcobj.jar' >> ~/.bashrc
 
 # add a sample program
 RUN mkdir /root/cobol_sample

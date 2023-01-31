@@ -3,7 +3,7 @@
 Versions :
 
 - OS: Ubuntu
-- opensource COBOL 4j: v1.0.5
+- opensource COBOL 4j: v1.0.7
 
 In order to "Hello World" program, run the following commands in the docker container
 

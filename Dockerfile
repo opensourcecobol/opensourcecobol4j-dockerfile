@@ -15,9 +15,9 @@ ENV CLASSPATH :/root/.java_lib/sqlite.jar
 
 # install opensourcecobol4j
 RUN cd /root &&\
-    curl -L -o opensourcecobol4j-v1.0.12.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.12.tar.gz &&\
-    tar zxvf opensourcecobol4j-v1.0.12.tar.gz &&\
-    cd opensourcecobol4j-1.0.12 &&\
+    curl -L -o opensourcecobol4j-v1.0.13.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.13.tar.gz &&\
+    tar zxvf opensourcecobol4j-v1.0.13.tar.gz &&\
+    cd opensourcecobol4j-1.0.13 &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install

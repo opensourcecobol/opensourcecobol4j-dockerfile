@@ -13,13 +13,14 @@ ENV CLASSPATH :/usr/lib/opensourcecobol4j/sqlite.jar:/usr/lib/opensourcecobol4j/
 
 # install SQLite JDBC driver
 RUN mkdir -p /usr/lib/opensourcecobol4j /usr/lib/Open-COBOL-ESQL-4j &&\
-    curl -L -o /usr/lib/opensourcecobol4j/sqlite.jar -k https://github.com/xerial/sqlite-jdbc/releases/download/3.36.0.3/sqlite-jdbc-3.36.0.3.jar &&\
-    curl -L -o /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar -k https://jdbc.postgresql.org/download/postgresql-42.2.24.jre6.jar
+    curl -L -o /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar -k https://jdbc.postgresql.org/download/postgresql-42.2.24.jre6.jar &&\
+    curl -L -o /usr/lib/opensourcecobol4j/sqlite.jar -k https://github.com/xerial/sqlite-jdbc/releases/download/3.36.0.3/sqlite-jdbc-3.36.0.3.jar
 
 # install opensourcecobol4j
 RUN cd /root &&\
     git clone https://github.com/opensourcecobol/opensourcecobol4j.git &&\
     cd opensourcecobol4j &&\
+    cp /usr/lib/opensourcecobol4j/sqlite.jar libcobj/sqlite-jdbc &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install

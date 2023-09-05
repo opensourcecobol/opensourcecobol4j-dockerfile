@@ -30,14 +30,11 @@ RUN cd /root &&\
     source "/root/.sdkman/bin/sdkman-init.sh" &&\
     git clone https://github.com/opensourcecobol/Open-COBOL-ESQL-4j.git &&\
     cd Open-COBOL-ESQL-4j &&\
+    cp /usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib &&\
+    cp /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib &&\
     ./configure --prefix=/usr/ &&\
     make &&\
-    make install &&\
-    cd dblibj &&\
-    cp /usr/lib/opensourcecobol4j/libcobj.jar lib &&\
-    cp /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar lib &&\
-    sbt assembly &&\
-    cp target/scala-2.13/ocesql4j.jar /usr/lib/Open-COBOL-ESQL-4j/
+    make install
 
 # classpath settings
 RUN echo 'export CLASSPATH=:/usr/lib/opensourcecobol4j/sqlite.jar:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/ocesql4j.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar' >> ~/.bashrc

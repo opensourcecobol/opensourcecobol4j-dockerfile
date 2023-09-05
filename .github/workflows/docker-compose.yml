@@ -1,0 +1,17 @@
+name: test for docker-compose
+
+on:
+  push:
+  pull_request:
+    types: [opened, reopened, review_requested, synchronize]
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Launch docker containers
+        run: cd docker-compose && docker compose up -d

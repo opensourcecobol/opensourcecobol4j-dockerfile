@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  oc4j_db:
+    image: postgres:10
+    container_name: oc4j_db
+    environment:
+      - POSTGRES_USER=main_user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=testdb
+    ports:
+      - "5432:5432"
+
+  oc4j_client:
+    image: opensourcecobol/opensourcecobol4j:1.0.14
+    container_name: oc4j_client
+    stdin_open: true
+    tty: true
+    depends_on:
+      oc4j_db:
+        condition: service_started
+    logging:
+      driver: none

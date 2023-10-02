@@ -13,5 +13,5 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Launch docker containers
-        run: cd docker-compose && docker compose up -d
+          #- name: Launch docker containers
+          #  run: cd docker-compose && docker compose up -d

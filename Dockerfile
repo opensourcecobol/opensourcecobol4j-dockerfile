@@ -17,14 +17,14 @@ RUN apt-get update && apt-get install -y sbt
 
 # install opensourcecobol4j
 RUN cd /root &&\
-    curl -L -o opensourcecobol4j-v1.0.14.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.14.tar.gz &&\
-    tar zxvf opensourcecobol4j-v1.0.14.tar.gz &&\
-    cd opensourcecobol4j-1.0.14 &&\
+    curl -L -o opensourcecobol4j-v1.0.15.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.15.tar.gz &&\
+    tar zxvf opensourcecobol4j-v1.0.15.tar.gz &&\
+    cd opensourcecobol4j-1.0.15 &&\
     curl -L -o libcobj/sqlite-jdbc/sqlite.jar https://github.com/xerial/sqlite-jdbc/releases/download/3.36.0.3/sqlite-jdbc-3.36.0.3.jar &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install &&\
-    rm ../opensourcecobol4j-v1.0.14.tar.gz
+    rm ../opensourcecobol4j-v1.0.15.tar.gz
 
 # Install Open COBOL ESQL 4J
 RUN mkdir -p /usr/lib/Open-COBOL-ESQL-4j &&\

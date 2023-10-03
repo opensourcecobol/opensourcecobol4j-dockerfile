@@ -4,7 +4,7 @@ SHELL ["/bin/bash", "-c"]
 
 # install dependencies of opensourcecobol 4J and Open COBOL ESQL 4J
 RUN apt-get update &&\
-    apt-get install -y default-jdk build-essential bison flex gettext texinfo libgmp-dev autoconf git unzip zip &&\
+    apt-get install -y default-jdk build-essential bison flex gettext texinfo libgmp-dev autoconf libtool git unzip zip &&\
     curl -s "https://get.sdkman.io" | bash &&\
     source "/root/.sdkman/bin/sdkman-init.sh" &&\
     sdk install sbt

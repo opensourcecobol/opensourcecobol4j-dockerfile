@@ -12,7 +12,7 @@ services:
       - "5432:5432"
 
   oc4j_client:
-    image: opensourcecobol/opensourcecobol4j:1.0.15
+    image: opensourcecobol/opensourcecobol4j:1.0.16
     container_name: oc4j_client
     stdin_open: true
     tty: true

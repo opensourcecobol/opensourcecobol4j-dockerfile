@@ -31,7 +31,6 @@ RUN cd /root &&\
     git clone https://github.com/opensourcecobol/Open-COBOL-ESQL-4j.git &&\
     cd Open-COBOL-ESQL-4j &&\
     cp /usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib &&\
-    cp /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install

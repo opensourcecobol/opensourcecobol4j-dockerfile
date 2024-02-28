@@ -4,7 +4,7 @@
 Versions :
 
 - OS: Ubuntu
-- opensource COBOL 4J: v1.0.18
+- opensource COBOL 4J: v1.0.20
 - Open COBOL ESQL 4J: v1.0.3
 
 In order to "Hello World" program, run the following commands in the docker container
@@ -44,4 +44,4 @@ docker attach oc4j_client
 
 The container is for developers opensource COBOL 4J and Open COBOL ESQL 4J, not users of them.
 
-Copyright 2021-2023, Tokyo System House Co., Ltd. <opencobol@tsh-world.co.jp>
+Copyright 2021-2024, Tokyo System House Co., Ltd. <opencobol@tsh-world.co.jp>

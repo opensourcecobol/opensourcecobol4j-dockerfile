@@ -17,13 +17,13 @@ RUN apt-get update && apt-get install -y sbt
 
 # install opensourcecobol4j
 RUN cd /root &&\
-    curl -L -o opensourcecobol4j-v1.0.20.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.20.tar.gz &&\
-    tar zxvf opensourcecobol4j-v1.0.20.tar.gz &&\
-    cd opensourcecobol4j-1.0.20 &&\
+    curl -L -o opensourcecobol4j-v1.0.21.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.0.21.tar.gz &&\
+    tar zxvf opensourcecobol4j-v1.0.21.tar.gz &&\
+    cd opensourcecobol4j-1.0.21 &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install &&\
-    rm ../opensourcecobol4j-v1.0.20.tar.gz
+    rm ../opensourcecobol4j-v1.0.21.tar.gz
 
 # Install Open COBOL ESQL 4J
 RUN mkdir -p /usr/lib/Open-COBOL-ESQL-4j &&\

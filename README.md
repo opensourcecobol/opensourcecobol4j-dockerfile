@@ -4,7 +4,7 @@
 Versions :
 
 - OS: Ubuntu
-- opensource COBOL 4J: v1.0.20
+- opensource COBOL 4J: v1.0.21
 - Open COBOL ESQL 4J: v1.0.3
 
 In order to "Hello World" program, run the following commands in the docker container

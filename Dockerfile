@@ -1,4 +1,4 @@
-FROM ubuntu:22.04
+FROM almalinux:9.4
 
 SHELL ["/bin/bash", "-c"]
 
@@ -7,13 +7,13 @@ ENV CLASSPATH :/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4
 RUN echo 'export CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/Open-COBOL-ESQL-4j/ocesql4j.jar' >> ~/.bashrc
 
 # install dependencies
-RUN apt-get update
-RUN apt-get install -y default-jdk build-essential bison flex gettext texinfo autoconf unzip zip gnupg
+RUN dnf update -y
+RUN dnf install -y gcc g++ make autoconf diffutils gettext java-21-openjdk
 # install sbt
-RUN echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | tee /etc/apt/sources.list.d/sbt.list &&\
-    echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | tee /etc/apt/sources.list.d/sbt_old.list &&\
-    curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | apt-key add 
-RUN apt-get update && apt-get install -y sbt
+RUN rm -f /etc/yum.repos.d/bintray-rpm.repo &&\
+    curl -L https://www.scala-sbt.org/sbt-rpm.repo > sbt-rpm.repo &&\
+    mv sbt-rpm.repo /etc/yum.repos.d/ &&\
+    dnf install -y sbt
 
 # install opensourcecobol4j
 RUN cd /root &&\

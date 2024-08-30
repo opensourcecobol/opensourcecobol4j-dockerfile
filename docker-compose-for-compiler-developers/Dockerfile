@@ -11,9 +11,9 @@ RUN apt-get update &&\
 
 ENV CLASSPATH :/usr/lib/opensourcecobol4j/sqlite.jar:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/ocesql4j.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar
 
-# install SQLite JDBC driver
+# install JDBC drivers
 RUN mkdir -p /usr/lib/opensourcecobol4j /usr/lib/Open-COBOL-ESQL-4j &&\
-    curl -L -o /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar -k https://jdbc.postgresql.org/download/postgresql-42.2.24.jre6.jar &&\
+    curl -L -o /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar -k https://jdbc.postgresql.org/download/postgresql-42.2.24.jar &&\
     curl -L -o /usr/lib/opensourcecobol4j/sqlite.jar -k https://github.com/xerial/sqlite-jdbc/releases/download/3.36.0.3/sqlite-jdbc-3.36.0.3.jar
 
 # install opensourcecobol4j
@@ -31,6 +31,7 @@ RUN cd /root &&\
     git clone https://github.com/opensourcecobol/Open-COBOL-ESQL-4j.git &&\
     cd Open-COBOL-ESQL-4j &&\
     cp /usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib &&\
+    cp /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install

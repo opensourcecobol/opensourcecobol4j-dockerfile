@@ -27,10 +27,10 @@ RUN cd /root &&\
 ENV PATH="$PATH:/root/.local/share/coursier/bin"
 RUN mkdir -p /usr/lib/Open-COBOL-ESQL-4j &&\
     cd /root/ &&\
-    curl -L -o Open-COBOL-ESQL-4j-1.1.0.tar.gz https://github.com/opensourcecobol/Open-COBOL-ESQL-4j/archive/refs/tags/v1.1.0.tar.gz &&\
-    tar zxvf Open-COBOL-ESQL-4j-1.1.0.tar.gz &&\
-    rm Open-COBOL-ESQL-4j-1.1.0.tar.gz &&\
-    cd Open-COBOL-ESQL-4j-1.1.0 &&\
+    curl -L -o Open-COBOL-ESQL-4j-1.1.1.tar.gz https://github.com/opensourcecobol/Open-COBOL-ESQL-4j/archive/refs/tags/v1.1.1.tar.gz &&\
+    tar zxvf Open-COBOL-ESQL-4j-1.1.1.tar.gz &&\
+    rm Open-COBOL-ESQL-4j-1.1.1.tar.gz &&\
+    cd Open-COBOL-ESQL-4j-1.1.1 &&\
     mkdir -p /usr/lib/Open-COBOL-ESQL-4j/ &&\
     curl -L -o /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar &&\
     cp /usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib &&\

@@ -3,7 +3,7 @@ FROM almalinux:9
 SHELL ["/bin/bash", "-c"]
 
 # classpath settings
-ENV CLASSPATH :/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/opensourcecobol4j/ocesql4j.jar
+ENV CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/opensourcecobol4j/ocesql4j.jar
 RUN echo 'export CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/Open-COBOL-ESQL-4j/ocesql4j.jar' >> ~/.bashrc
 
 # install dependencies
@@ -21,7 +21,7 @@ RUN cd /root &&\
     ./configure --prefix=/usr/ &&\
     make &&\
     make install &&\
-    rm ../opensourcecobol4j-v1.1.3.tar.gz
+    rm /root/opensourcecobol4j-v1.1.3.tar.gz
 
 # Install Open COBOL ESQL 4J
 ENV PATH="$PATH:/root/.local/share/coursier/bin"
@@ -37,7 +37,8 @@ RUN mkdir -p /usr/lib/Open-COBOL-ESQL-4j &&\
     cp /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib &&\
     ./configure --prefix=/usr/ &&\
     make &&\
-    make install
+    make install &&\
+    rm -rf /root/Open-COBOL-ESQL-4j-1.1.1
 
 # add sample programs
 ADD cobol_sample /root/cobol_sample

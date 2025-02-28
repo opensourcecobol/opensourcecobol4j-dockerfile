@@ -15,14 +15,14 @@ RUN curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x8
 
 # install opensourcecobol4j
 RUN cd /root &&\
-    curl -L -o opensourcecobol4j-v1.1.6.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.1.6.tar.gz &&\
-    tar zxvf opensourcecobol4j-v1.1.6.tar.gz &&\
-    cd opensourcecobol4j-1.1.6 &&\
+    curl -L -o opensourcecobol4j-v1.1.7.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.1.7.tar.gz &&\
+    tar zxvf opensourcecobol4j-v1.1.7.tar.gz &&\
+    cd opensourcecobol4j-1.1.7 &&\
     ./configure --prefix=/usr/ --enable-utf8 &&\
     touch cobj/*.m4 &&\
     make &&\
     make install &&\
-    rm /root/opensourcecobol4j-v1.1.6.tar.gz
+    rm /root/opensourcecobol4j-v1.1.7.tar.gz
 
 # add sample programs
 ADD cobol_sample /root/cobol_sample

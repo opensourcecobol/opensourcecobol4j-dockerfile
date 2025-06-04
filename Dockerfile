@@ -56,7 +56,7 @@ COPY --from=builder /usr/bin/cob-config /usr/bin/
 COPY --from=builder /usr/bin/cobj-idx /usr/bin/
 COPY --from=builder /usr/bin/cobj-api /usr/bin/
 # Copy Open COBOL ESQL 4J executable
-COPY --from=builder /usr/bin/ocesql4j /usr/bin/
+COPY --from=builder /usr/bin/ocesql /usr/bin/
 # Copy JAR libraries
 COPY --from=builder /usr/lib/opensourcecobol4j/ /usr/lib/opensourcecobol4j/
 COPY --from=builder /usr/lib/Open-COBOL-ESQL-4j/ /usr/lib/Open-COBOL-ESQL-4j/

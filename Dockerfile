@@ -18,9 +18,9 @@ ENV PATH="$PATH:/root/.local/share/coursier/bin"
 
 # Build opensourcecobol4j
 RUN cd /tmp && \
-    curl -L -o opensourcecobol4j-v1.1.7.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.1.7.tar.gz && \
-    tar zxf opensourcecobol4j-v1.1.7.tar.gz && \
-    cd opensourcecobol4j-1.1.7 && \
+    curl -L -o opensourcecobol4j-v1.1.9.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.1.9.tar.gz && \
+    tar zxf opensourcecobol4j-v1.1.9.tar.gz && \
+    cd opensourcecobol4j-1.1.9 && \
     ./configure --prefix=/usr/ && \
     make && \
     make install
@@ -61,7 +61,7 @@ COPY --from=builder /usr/bin/ocesql4j /usr/bin/
 COPY --from=builder /usr/lib/opensourcecobol4j/ /usr/lib/opensourcecobol4j/
 COPY --from=builder /usr/lib/Open-COBOL-ESQL-4j/ /usr/lib/Open-COBOL-ESQL-4j/
 # Copy configuration and copy files
-COPY --from=builder /usr/share/opensource-cobol-4j-1.1.8-hotfix1/ /usr/share/opensource-cobol-4j-1.1.8-hotfix1/
+COPY --from=builder /usr/share/opensource-cobol-4j-1.1.9/ /usr/share/opensource-cobol-4j-1.1.9/
 # Copy header file
 COPY --from=builder /usr/include/libcobj.h /usr/include/
 

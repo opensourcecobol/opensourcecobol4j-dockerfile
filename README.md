@@ -1,10 +1,11 @@
 # opensource COBOL 4J development environment (Docker)
 
 ## Docker image
+
 Versions :
 
 - OS: Ubuntu
-- opensource COBOL 4J: v1.1.7
+- opensource COBOL 4J: v1.1.9
 - Open COBOL ESQL 4J: v1.1.1
 
 In order to "Hello World" program, run the following commands in the docker container

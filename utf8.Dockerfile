@@ -61,4 +61,3 @@ WORKDIR /root/
 
 CMD ["/bin/bash"]
 
-CMD ["/bin/bash"]

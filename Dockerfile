@@ -5,7 +5,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Install build dependencies
 RUN dnf update -y && \
-    dnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel gzip tar && \
+    dnf install -y gcc make bison flex automake autoconf diffutils gettext java-21-openjdk-devel gzip tar && \
     dnf clean all
 
 # Install sbt
@@ -45,7 +45,7 @@ SHELL ["/bin/bash", "-c"]
 
 # Install only runtime dependencies
 RUN dnf update -y && \
-    dnf install -y java-11-openjdk-headless && \
+    dnf install -y java-21-openjdk-devel && \
     dnf clean all
 
 # Copy installed files from builder

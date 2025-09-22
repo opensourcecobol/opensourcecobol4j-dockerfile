@@ -12,9 +12,18 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+     
+      - name: Load configuration
+        run: |
+          echo opensource_COBOL_4J_version="$(jq -r '.opensource_COBOL_4J_version' build-config.json)" >> $GITHUB_ENV
+          echo Open_COBOL_ESQL_4J_version="$(jq -r '.Open_COBOL_ESQL_4J_version' build-config.json)" >> $GITHUB_ENV
+          echo version_string_prefix="$(jq -r '.version_string_prefix' build-config.json)" >> $GITHUB_ENV
 
       - name: Build a docker image
-        run: docker build -t opensourcecobol/opensourcecobol4j .
+        run: |
+          docker build -t opensourcecobol/opensourcecobol4j:"$version_string_prefix" . \
+          --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version" \
+          --build-arg Open_COBOL_ESQL_4J_version="$Open_COBOL_ESQL_4J_version"
 
   utf8-build:
     runs-on: ubuntu-latest
@@ -23,5 +32,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Load configuration
+        run: |
+          echo opensource_COBOL_4J_version="$(jq -r '.opensource_COBOL_4J_version' build-config.json)" >> $GITHUB_ENV
+          echo Open_COBOL_ESQL_4J_version="$(jq -r '.Open_COBOL_ESQL_4J_version' build-config.json)" >> $GITHUB_ENV
+          echo version_string_prefix="$(jq -r '.version_string_prefix' build-config.json)" >> $GITHUB_ENV
+
       - name: Build a docker image
-        run: docker build -t opensourcecobol/opensourcecobol4j:utf8 . -f utf8.Dockerfile
+        run: |
+          docker build -t opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" . \
+          --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version" \
+          --build-arg Open_COBOL_ESQL_4J_version="$Open_COBOL_ESQL_4J_version"

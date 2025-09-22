@@ -1,6 +1,8 @@
 # Build stage
 FROM almalinux:9 AS builder
 
+ARG opensource_COBOL_4J_version=1.1.12 Open_COBOL_ESQL_4J_version=1.1.1
+
 SHELL ["/bin/bash", "-c"]
 
 # install build dependencies
@@ -15,14 +17,14 @@ RUN curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x8
 
 # build opensourcecobol4j
 RUN cd /root && \
-    curl -L -o opensourcecobol4j-v1.1.7.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v1.1.7.tar.gz && \
-    tar zxvf opensourcecobol4j-v1.1.7.tar.gz && \
-    cd opensourcecobol4j-1.1.7 && \
+    curl -L -o opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v${opensource_COBOL_4J_version}.tar.gz && \
+    tar zxvf opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz && \
+    cd opensourcecobol4j-${opensource_COBOL_4J_version} && \
     mkdir -p /tmp/usr/ &&\
     ./configure --prefix=/tmp/usr/ && \
     make && \
     make install && \
-    rm -rf /root/opensourcecobol4j-v1.1.7.tar.gz /root/opensourcecobol4j-1.1.7
+    rm -rf /root/opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz /root/opensourcecobol4j-${opensource_COBOL_4J_version}
 
 # Download postgresql jar
 RUN mkdir -p /tmp/usr/lib/Open-COBOL-ESQL-4j/ && \
@@ -31,16 +33,16 @@ RUN mkdir -p /tmp/usr/lib/Open-COBOL-ESQL-4j/ && \
 # Build Open COBOL ESQL 4J
 ENV PATH="$PATH:/root/.local/share/coursier/bin"
 RUN cd /root/ && \
-    curl -L -o Open-COBOL-ESQL-4j-1.1.1.tar.gz https://github.com/opensourcecobol/Open-COBOL-ESQL-4j/archive/refs/tags/v1.1.1.tar.gz && \
-    tar zxvf Open-COBOL-ESQL-4j-1.1.1.tar.gz && \
-    cd Open-COBOL-ESQL-4j-1.1.1 && \
+    curl -L -o Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz https://github.com/opensourcecobol/Open-COBOL-ESQL-4j/archive/refs/tags/v${Open_COBOL_ESQL_4J_version}.tar.gz && \
+    tar zxvf Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz && \
+    cd Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version} && \
     cp /tmp/usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib && \
     cp /tmp/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib && \
     mkdir -p /tmp/usr/ &&\
     ./configure --prefix=/tmp/usr/ && \
     make && \
     make install && \
-    rm -rf /root/Open-COBOL-ESQL-4j-1.1.1.tar.gz /root/Open-COBOL-ESQL-4j-1.1.1
+    rm -rf /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}
 
 # Runtime stage
 FROM almalinux:9

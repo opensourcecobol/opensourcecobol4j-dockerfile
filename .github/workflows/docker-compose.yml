@@ -31,4 +31,4 @@ jobs:
         working-directory: docker-compose
         run: |
           docker cp ../ocesql4j_sample oc4j_client:/tmp/ocesql4j_sample
-          docker exec oc4j_client bash -c "cd /tmp/ocesql4j_sample && make"
+          docker exec oc4j_client bash -c "cd /tmp/ocesql4j_sample && sh run.sh"

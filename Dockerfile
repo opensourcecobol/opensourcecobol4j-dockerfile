@@ -20,15 +20,14 @@ RUN cd /root && \
     curl -L -o opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v${opensource_COBOL_4J_version}.tar.gz && \
     tar zxvf opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz && \
     cd opensourcecobol4j-${opensource_COBOL_4J_version} && \
-    mkdir -p /tmp/usr/ &&\
-    ./configure --prefix=/tmp/usr/ && \
+    ./configure --prefix=/usr/ && \
     make && \
     make install && \
     rm -rf /root/opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz /root/opensourcecobol4j-${opensource_COBOL_4J_version}
 
 # Download postgresql jar
-RUN mkdir -p /tmp/usr/lib/Open-COBOL-ESQL-4j/ && \
-    curl -L -o /tmp/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar
+RUN mkdir -p /usr/lib/Open-COBOL-ESQL-4j/ && \
+    curl -L -o /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar https://jdbc.postgresql.org/download/postgresql-42.2.24.jar
 
 # Build Open COBOL ESQL 4J
 ENV PATH="$PATH:/root/.local/share/coursier/bin"
@@ -36,16 +35,17 @@ RUN cd /root/ && \
     curl -L -o Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz https://github.com/opensourcecobol/Open-COBOL-ESQL-4j/archive/refs/tags/v${Open_COBOL_ESQL_4J_version}.tar.gz && \
     tar zxvf Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz && \
     cd Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version} && \
-    cp /tmp/usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib && \
-    cp /tmp/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib && \
-    mkdir -p /tmp/usr/ &&\
-    ./configure --prefix=/tmp/usr/ && \
+    cp /usr/lib/opensourcecobol4j/libcobj.jar dblibj/lib && \
+    cp /usr/lib/Open-COBOL-ESQL-4j/postgresql.jar dblibj/lib && \
+    ./configure --prefix=/usr/ && \
     make && \
     make install && \
     rm -rf /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}
 
 # Runtime stage
 FROM almalinux:9
+
+ARG opensource_COBOL_4J_version=1.1.12 Open_COBOL_ESQL_4J_version=1.1.1
 
 SHELL ["/bin/bash", "-c"]
 
@@ -55,8 +55,24 @@ RUN dnf update -y && \
     dnf clean all && \
     rm -rf /var/cache/dnf/*
 
+# create required directories
+RUN mkdir -p /usr/lib/opensourcecobol4j \
+             /usr/lib/Open-COBOL-ESQL-4j \
+             /usr/bin/ \
+             /usr/include/ \
+             /usr/lib/share
+
 # copy built files from builder stage
-COPY --from=builder /tmp/usr/ /usr/
+COPY --from=builder /usr/lib/opensourcecobol4j/ /usr/lib/opensourcecobol4j/
+COPY --from=builder /usr/lib/Open-COBOL-ESQL-4j/ /usr/lib/Open-COBOL-ESQL-4j/
+COPY --from=builder /usr/bin/cob-config /usr/bin/cob-config
+COPY --from=builder /usr/bin/cobj /usr/bin/cobj
+COPY --from=builder /usr/bin/cobj-api /usr/bin/cobj-api
+COPY --from=builder /usr/bin/cobj-idx /usr/bin/cobj-idx
+COPY --from=builder /usr/bin/cobjrun /usr/bin/cobjrun
+COPY --from=builder /usr/bin/ocesql /usr/bin/ocesql
+COPY --from=builder /usr/include/libcobj.h /usr/include/libcobj.h
+COPY --from=builder /usr/share/opensource-cobol-4j-${opensource_COBOL_4J_version} /usr/share/opensource-cobol-4j-${opensource_COBOL_4J_version}
 
 # classpath settings
 ENV CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/opensourcecobol4j/ocesql4j.jar

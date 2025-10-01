@@ -75,7 +75,7 @@ COPY --from=builder /usr/include/libcobj.h /usr/include/libcobj.h
 COPY --from=builder /usr/share/opensource-cobol-4j-${opensource_COBOL_4J_version} /usr/share/opensource-cobol-4j-${opensource_COBOL_4J_version}
 
 # classpath settings
-ENV CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/opensourcecobol4j/ocesql4j.jar
+ENV CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/Open-COBOL-ESQL-4j/ocesql4j.jar
 RUN echo 'export CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar:/usr/lib/Open-COBOL-ESQL-4j/postgresql.jar:/usr/lib/Open-COBOL-ESQL-4j/ocesql4j.jar' >> ~/.bashrc
 
 # add sample programs

@@ -1,7 +1,7 @@
 # Build stage
 FROM almalinux:9 AS builder
 
-ARG opensource_COBOL_4J_version=1.1.12 Open_COBOL_ESQL_4J_version=1.1.1
+ARG opensource_COBOL_4J_version=dummy_value
 
 SHELL ["/bin/bash", "-c"]
 

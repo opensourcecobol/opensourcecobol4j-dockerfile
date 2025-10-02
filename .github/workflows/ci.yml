@@ -1,4 +1,4 @@
-name: test
+name: Build and Push Docker Image
 
 on:
   push:
@@ -28,13 +28,13 @@ jobs:
 
       - name: Build a docker image
         run: |
-          docker build -t opensourcecobol/opensourcecobol4j:"$version_string_prefix"-debug . \
+          docker build -t opensourcecobol/opensourcecobol4j:"$version_string_prefix" . \
           --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version" \
           --build-arg Open_COBOL_ESQL_4J_version="$Open_COBOL_ESQL_4J_version"
       
       - name: Copy Docker image
         run: |
-          docker tag opensourcecobol/opensourcecobol4j:"$version_string_prefix"-debug opensourcecobol/opensourcecobol4j:"$version_string_prefix"-debug-latest
+          docker tag opensourcecobol/opensourcecobol4j:"$version_string_prefix" opensourcecobol/opensourcecobol4j:latest
 
       - name: Login to Docker Hub
         if: github.ref == 'main' && github.event_name == 'workflow_dispatch' && inputs.push_to_dockerhub == 'true'
@@ -46,8 +46,8 @@ jobs:
       - name: Push to Docker Hub
         if: github.ref == 'main' && github.event_name == 'workflow_dispatch' && inputs.push_to_dockerhub == 'true'
         run: |
-          docker push opensourcecobol/opensourcecobol4j:"$version_string_prefix"-debug
-          docker push opensourcecobol/opensourcecobol4j:"$version_string_prefix"-debug-latest
+          docker push opensourcecobol/opensourcecobol4j:"$version_string_prefix"
+          docker push opensourcecobol/opensourcecobol4j:latest
 
   utf8-build:
     runs-on: ubuntu-latest
@@ -64,7 +64,7 @@ jobs:
 
       - name: Build a docker image
         run: |
-          docker build -t opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix"-debug . \
+          docker build -t opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" . \
           --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version" \
           --build-arg Open_COBOL_ESQL_4J_version="$Open_COBOL_ESQL_4J_version"
 
@@ -78,4 +78,4 @@ jobs:
       - name: Push to Docker Hub
         if: github.ref == 'main' && github.event_name == 'workflow_dispatch' && inputs.push_to_dockerhub == 'true'
         run: |
-          docker push opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix"-debug
+          docker push opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix"

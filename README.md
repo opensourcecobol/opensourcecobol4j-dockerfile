@@ -1,35 +1,26 @@
-# opensource COBOL 4J development environment (Docker)
+このリポジトリでは、GitHub Actionsを使用して、opensource COBOL 4J及びOpen COBOL ESQL 4JのインストールされたDockerイメージのリリースを行います。
 
-## Docker image
-Versions :
+# リリース手順
 
-- OS: Ubuntu
-- opensource COBOL 4J: v1.1.7
-- Open COBOL ESQL 4J: v1.1.1
+## build-config.jsonの編集
 
-In order to "Hello World" program, run the following commands in the docker container
+リリースするバージョンに合わせて、build-config.jsonを編集します。
+* opensource_COBOL_4J_version: Dockerイメージにインストールするopensource COBOL 4Jのバージョン
+* Open_COBOL_ESQL_4J_version: DockerイメージにインストールするOpen COBOL ESQL 4Jのバージョン
+* version_string_prefix: リリースするDockerイメージタグのプレフィックス
+  * 例えば20250929を指定すると、以下の3つのタグを持つDockerイメージがビルドされ、Docker Hubにプッシュされます。
+    * opensourcecobol/opensourcecobol4j:20250929
+    * opensourcecobol/opensourcecobol4j:20250929-utf8
+    * opensourcecobol/opensourcecobol4j:latest
 
-```
-cd /root/cobol_sample
-cobj HELLO.cbl
-java HELLO
-```
+## ワークフローの手動実行
 
-## Docker containers
+[公式ドキュメント](https://docs.github.com/ja/actions/how-tos/manage-workflow-runs/manually-run-a-workflow)を参考にして、ワークフローを手動で実行します。
 
-In order to launch the environment with a database server and a client with opensource COBOL 4J Open COBOL ESQL 4J installed, run the following command.
+* ワークフロー名: `Build and Push Docker Image`
+* ブランチ: `main`
+* 入力パラメータ: `push_to_dockerhub`に`true`を指定
 
-```bash
-cd docker-compose
-docker compose up -d
-docker attach oc4j_client
-```
+これによりDockerイメージがビルドされ、Docker HubにDockerイメージがプッシュされます。
 
-Run the following in the docker container and execute sample programs of Open COBOL ESQL 4J.
-
-```bash
-cd /root/ocesql4j_sample
-make
-```
-
-Copyright 2021-2024, Tokyo System House Co., Ltd. <opencobol@tsh-world.co.jp>
+Copyright 2021-2025, Tokyo System House Co., Ltd. <opencobol@tsh-world.co.jp>

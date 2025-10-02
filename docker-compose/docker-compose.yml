@@ -12,7 +12,12 @@ services:
       - "5432:5432"
 
   oc4j_client:
-    image: opensourcecobol/opensourcecobol4j:20241227
+    build:
+      context: ..
+      dockerfile: Dockerfile
+      args:
+        - opensource_COBOL_4J_version=dummy_value
+        - Open_COBOL_ESQL_4J_version=dummy_value
     container_name: oc4j_client
     stdin_open: true
     tty: true

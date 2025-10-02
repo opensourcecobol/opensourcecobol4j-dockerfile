@@ -11,7 +11,24 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v5
+
+      - name: Load configuration
+        run: |
+          echo opensource_COBOL_4J_version="$(jq -r '.opensource_COBOL_4J_version' build-config.json)" >> $GITHUB_ENV
+          echo Open_COBOL_ESQL_4J_version="$(jq -r '.Open_COBOL_ESQL_4J_version' build-config.json)" >> $GITHUB_ENV
+          echo version_string_prefix="$(jq -r '.version_string_prefix' build-config.json)" >> $GITHUB_ENV
 
       - name: Launch docker containers
-        run: cd docker-compose && docker compose up -d
+        working-directory: docker-compose
+        run: |
+          docker compose build \
+            --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version" \
+            --build-arg Open_COBOL_ESQL_4J_version="$Open_COBOL_ESQL_4J_version"
+          docker compose up -d
+
+      - name: Run example programs
+        working-directory: docker-compose
+        run: |
+          docker cp ../ocesql4j_sample oc4j_client:/tmp/ocesql4j_sample
+          docker exec oc4j_client bash -c "cd /tmp/ocesql4j_sample && sh run.sh"

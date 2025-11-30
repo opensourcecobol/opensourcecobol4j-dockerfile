@@ -1,5 +1,5 @@
 # Build stage
-FROM almalinux:9 AS builder
+FROM almalinux:9-minimal AS builder
 
 ARG opensource_COBOL_4J_version=dummy_value Open_COBOL_ESQL_4J_version=dummy_value
 
@@ -43,17 +43,11 @@ RUN cd /root/ && \
     rm -rf /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}
 
 # Runtime stage
-FROM almalinux:9
+FROM almalinux:9-minimal
 
 ARG opensource_COBOL_4J_version=dummy_value Open_COBOL_ESQL_4J_version=dummy_value
 
 SHELL ["/bin/bash", "-c"]
-
-# install runtime dependencies only
-RUN dnf update -y && \
-    dnf install -y java-11-openjdk-devel && \
-    dnf clean all && \
-    rm -rf /var/cache/dnf/*
 
 # create required directories
 RUN mkdir -p /usr/lib/opensourcecobol4j \

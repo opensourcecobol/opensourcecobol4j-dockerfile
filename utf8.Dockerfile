@@ -30,6 +30,8 @@ RUN cd /root && \
 # Runtime stage
 FROM almalinux:9-minimal
 
+ARG opensource_COBOL_4J_version=dummy_value
+
 SHELL ["/bin/bash", "-c"]
 
 # install runtime dependencies only

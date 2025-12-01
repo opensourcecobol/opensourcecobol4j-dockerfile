@@ -7,7 +7,7 @@ SHELL ["/bin/bash", "-c"]
 
 # install build dependencies
 RUN microdnf update -y && \
-    microdnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel && \
+    microdnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel tar gzip && \
     microdnf clean all
 
 # install sbt

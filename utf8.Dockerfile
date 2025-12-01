@@ -1,14 +1,14 @@
 # Build stage
-FROM almalinux:9-minimal AS builder
+FROM almalinux:9 AS builder
 
 ARG opensource_COBOL_4J_version=dummy_value
 
 SHELL ["/bin/bash", "-c"]
 
 # install build dependencies
-RUN microdnf update -y && \
-    microdnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel tar gzip && \
-    microdnf clean all
+RUN dnf update -y && \
+    dnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel tar gzip && \
+    dnf clean all
 
 # install sbt
 RUN curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && \
@@ -27,17 +27,17 @@ RUN cd /root && \
     rm -rf /root/opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz /root/opensourcecobol4j-${opensource_COBOL_4J_version}
 
 # Runtime stage
-FROM almalinux:9-minimal
+FROM almalinux:9
 
 ARG opensource_COBOL_4J_version=dummy_value
 
 SHELL ["/bin/bash", "-c"]
 
 # install runtime dependencies only
-RUN microdnf update -y && \
-    microdnf install -y java-11-openjdk-devel && \
-    microdnf clean all && \
-    rm -rf /var/cache/microdnf/*
+RUN dnf update -y && \
+    dnf install -y java-11-openjdk-devel && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf/*
 
 # copy built files from builder stage
 COPY --from=builder /usr/lib/opensourcecobol4j/ /usr/lib/opensourcecobol4j/

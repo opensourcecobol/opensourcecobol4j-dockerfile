@@ -36,6 +36,10 @@ jobs:
         run: |
           docker tag opensourcecobol/opensourcecobol4j:"$version_string_prefix" opensourcecobol/opensourcecobol4j:latest
 
+      - name: Show Docker image size
+        run: |
+          docker images opensourcecobol/opensourcecobol4j:"$version_string_prefix" --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}"
+
       - name: Check the version of installed software
         run: |
           docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "cobj --version | grep 'opensource COBOL 4J $opensource_COBOL_4J_version'"
@@ -72,6 +76,10 @@ jobs:
         run: |
           docker build -t opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" . -f utf8.Dockerfile \
           --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version"
+
+      - name: Show Docker image size
+        run: |
+          docker images opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}"
 
       - name: Check the version of installed software
         run: |

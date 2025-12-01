@@ -39,7 +39,16 @@ RUN microdnf update -y && \
     rm -rf /var/cache/microdnf/*
 
 # copy built files from builder stage
-COPY --from=builder /tmp/usr/ /usr/
+COPY --from=builder /usr/lib/opensourcecobol4j/ /usr/lib/opensourcecobol4j/
+COPY --from=builder /usr/lib/Open-COBOL-ESQL-4j/ /usr/lib/Open-COBOL-ESQL-4j/
+COPY --from=builder /usr/bin/cob-config /usr/bin/cob-config
+COPY --from=builder /usr/bin/cobj /usr/bin/cobj
+COPY --from=builder /usr/bin/cobj-api /usr/bin/cobj-api
+COPY --from=builder /usr/bin/cobj-idx /usr/bin/cobj-idx
+COPY --from=builder /usr/bin/cobjrun /usr/bin/cobjrun
+COPY --from=builder /usr/bin/ocesql /usr/bin/ocesql
+COPY --from=builder /usr/include/libcobj.h /usr/include/libcobj.h
+COPY --from=builder /usr/share/opensource-cobol-4j-${opensource_COBOL_4J_version} /usr/share/opensource-cobol-4j-${opensource_COBOL_4J_version}
 
 # classpath settings
 ENV CLASSPATH=:/usr/lib/opensourcecobol4j/libcobj.jar

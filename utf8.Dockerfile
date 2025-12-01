@@ -20,8 +20,7 @@ RUN cd /root && \
     curl -L -o opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz https://github.com/opensourcecobol/opensourcecobol4j/archive/refs/tags/v${opensource_COBOL_4J_version}.tar.gz && \
     tar zxvf opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz && \
     cd opensourcecobol4j-${opensource_COBOL_4J_version} && \
-    mkdir -p /tmp/usr/ &&\
-    ./configure --prefix=/tmp/usr/ --enable-utf8 && \
+    ./configure --prefix=/usr/ --enable-utf8 && \
     touch cobj/*.m4 && \
     make && \
     make install && \

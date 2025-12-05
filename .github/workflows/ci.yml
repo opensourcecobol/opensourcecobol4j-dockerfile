@@ -36,11 +36,21 @@ jobs:
         run: |
           docker tag opensourcecobol/opensourcecobol4j:"$version_string_prefix" opensourcecobol/opensourcecobol4j:latest
 
+      - name: Show Docker image size
+        run: |
+          docker images opensourcecobol/opensourcecobol4j:"$version_string_prefix" --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}"
+
       - name: Check the version of installed software
         run: |
           docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "cobj --version | grep 'opensource COBOL 4J $opensource_COBOL_4J_version'"
           docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "! cobj --version | grep 'unicode/utf-8 support'"
           docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "ocesql --version | grep 'Version $Open_COBOL_ESQL_4J_version'"
+
+      - name: Run simple tests inside the container
+        run: |
+          docker run -itd --name test_container opensourcecobol/opensourcecobol4j:latest
+          docker exec test_container sh -c "cd /root/cobol_sample && cobj HELLO.cbl && java HELLO"
+          docker rm -f test_container
 
       - name: Login to Docker Hub
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && inputs.push_to_dockerhub == true
@@ -73,10 +83,20 @@ jobs:
           docker build -t opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" . -f utf8.Dockerfile \
           --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version"
 
+      - name: Show Docker image size
+        run: |
+          docker images opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" --format "table {{.Repository}}:{{.Tag}}\t{{.Size}}"
+
       - name: Check the version of installed software
         run: |
           docker run --rm opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" sh -c "cobj --version | grep 'opensource COBOL 4J $opensource_COBOL_4J_version'"
           docker run --rm opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" sh -c "cobj --version | grep 'unicode/utf-8 support'"
+
+      - name: Run simple tests inside the container
+        run: |
+          docker run -itd --name test_container opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix"
+          docker exec test_container sh -c "cd /root/cobol_sample && cobj HELLO.cbl && java HELLO"
+          docker rm -f test_container
 
       - name: Login to Docker Hub
         if: github.ref == 'refs/heads/main' && github.event_name == 'workflow_dispatch' && inputs.push_to_dockerhub == true

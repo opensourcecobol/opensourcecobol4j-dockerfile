@@ -1,5 +1,5 @@
 # Build stage
-FROM almalinux:9-minimal AS builder
+FROM almalinux/9-micro:9 AS builder
 
 ARG opensource_COBOL_4J_version=dummy_value Open_COBOL_ESQL_4J_version=dummy_value
 
@@ -43,7 +43,7 @@ RUN cd /root/ && \
     rm -rf /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}.tar.gz /root/Open-COBOL-ESQL-4j-${Open_COBOL_ESQL_4J_version}
 
 # Runtime stage
-FROM almalinux:9-minimal
+FROM almalinux/9-micro:9
 
 ARG opensource_COBOL_4J_version=dummy_value Open_COBOL_ESQL_4J_version=dummy_value
 

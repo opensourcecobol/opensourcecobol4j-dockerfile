@@ -1,5 +1,5 @@
 # Build stage
-FROM almalinux:9-minimal AS builder
+FROM almalinux/9-micro:9 AS builder
 
 ARG opensource_COBOL_4J_version=dummy_value
 
@@ -27,7 +27,7 @@ RUN cd /root && \
     rm -rf /root/opensourcecobol4j-v${opensource_COBOL_4J_version}.tar.gz /root/opensourcecobol4j-${opensource_COBOL_4J_version}
 
 # Runtime stage
-FROM almalinux:9-minimal
+FROM almalinux/9-micro:9
 
 ARG opensource_COBOL_4J_version=dummy_value
 

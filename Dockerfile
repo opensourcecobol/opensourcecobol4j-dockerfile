@@ -6,9 +6,9 @@ ARG opensource_COBOL_4J_version=dummy_value Open_COBOL_ESQL_4J_version=dummy_val
 SHELL ["/bin/bash", "-c"]
 
 # install build dependencies
-RUN microdnf update -y && \
-    microdnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel tar gzip && \
-    microdnf clean all
+RUN dnf update -y && \
+    dnf install -y gcc make bison flex automake autoconf diffutils gettext java-11-openjdk-devel tar gzip && \
+    dnf clean all
 
 # install sbt
 RUN curl -fL https://github.com/coursier/coursier/releases/latest/download/cs-x86_64-pc-linux.gz | gzip -d > cs && \
@@ -50,10 +50,10 @@ ARG opensource_COBOL_4J_version=dummy_value Open_COBOL_ESQL_4J_version=dummy_val
 SHELL ["/bin/bash", "-c"]
 
 # install runtime dependencies only
-RUN microdnf update -y && \
-    microdnf install -y java-11-openjdk-devel && \
-    microdnf clean all && \
-    rm -rf /var/cache/microdnf/*
+RUN dnf update -y && \
+    dnf install -y java-11-openjdk-devel && \
+    dnf clean all && \
+    rm -rf /var/cache/dnf/*
 
 # create required directories
 RUN mkdir -p /usr/lib/opensourcecobol4j \

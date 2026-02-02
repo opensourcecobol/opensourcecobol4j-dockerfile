@@ -7,9 +7,9 @@ on:
   workflow_dispatch:
     inputs:
       push_to_dockerhub:
-        description: 'Push to Docker Hub'
+        description: "Push to Docker Hub"
         required: false
-        default: 'false'
+        default: "false"
         type: boolean
 
 jobs:
@@ -19,7 +19,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v5
-     
+
       - name: Load configuration
         run: |
           echo opensource_COBOL_4J_version="$(jq -r '.opensource_COBOL_4J_version' build-config.json)" >> $GITHUB_ENV
@@ -43,7 +43,6 @@ jobs:
       - name: Check the version of installed software
         run: |
           docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "cobj --version | grep 'opensource COBOL 4J $opensource_COBOL_4J_version'"
-          docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "! cobj --version | grep 'unicode/utf-8 support'"
           docker run --rm opensourcecobol/opensourcecobol4j:latest sh -c "ocesql --version | grep 'Version $Open_COBOL_ESQL_4J_version'"
 
       - name: Run simple tests inside the container
@@ -81,7 +80,8 @@ jobs:
       - name: Build a docker image
         run: |
           docker build -t opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" . -f utf8.Dockerfile \
-          --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version"
+          --build-arg opensource_COBOL_4J_version="$opensource_COBOL_4J_version" \
+          --build-arg Open_COBOL_ESQL_4J_version="$Open_COBOL_ESQL_4J_version"
 
       - name: Show Docker image size
         run: |
@@ -91,6 +91,8 @@ jobs:
         run: |
           docker run --rm opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" sh -c "cobj --version | grep 'opensource COBOL 4J $opensource_COBOL_4J_version'"
           docker run --rm opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" sh -c "cobj --version | grep 'unicode/utf-8 support'"
+          docker run --rm opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" sh -c "ocesql --version | grep 'Version $Open_COBOL_ESQL_4J_version'"
+          docker run --rm opensourcecobol/opensourcecobol4j:utf8-"$version_string_prefix" sh -c "ocesql --version | grep 'unicode/utf-8 support'"
 
       - name: Run simple tests inside the container
         run: |
